@@ -5,6 +5,8 @@ import useRegisterModal from '@/hooks/useRegisterModal';
 import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import Modal from './Modal';
+import Heading from '../Heading';
+import Input from '../inputs/Input';
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -34,6 +36,12 @@ const RegisterModal = () => {
     }
     setIsLoading(false)
   }
+  const bodyContent = (
+    <div className='flex flex-col gap-4'>
+      <Heading title='Welcome to RareBnB' subtitle='Create an account' center />
+      <Input register={register} id="email" label='Email' disabled={isLoading} errors={errors} required />
+    </div>
+  )
   return (
     <Modal
       disabled={isLoading}
@@ -41,7 +49,9 @@ const RegisterModal = () => {
       title='Register'
       actionLabel='Continue'
       onClose={registerModal.onClose}
-      onSubmit={handleSubmit(onSubmit)} />
+      onSubmit={handleSubmit(onSubmit)}
+      body={bodyContent}
+    />
   );
 }
 
