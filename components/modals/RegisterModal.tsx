@@ -39,7 +39,9 @@ const RegisterModal = () => {
   const bodyContent = (
     <div className='flex flex-col gap-4'>
       <Heading title='Welcome to RareBnB' subtitle='Create an account' center />
-      <Input register={register} id="email" label='Email' disabled={isLoading} errors={errors} required />
+      <Input register={register} id="name" label='Name' disabled={isLoading} errors={errors} required />
+      <Input register={register} id="email" label='Email' disabled={isLoading} errors={errors} required type='email' />
+      <Input register={register} id="password" label='Password' type='password' disabled={isLoading} errors={errors} required />
     </div>
   )
   return (
