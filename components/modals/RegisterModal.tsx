@@ -27,6 +27,7 @@ const RegisterModal = () => {
     formState: {
       errors,
     },
+    watch
   } = useForm<FieldValues>({
     defaultValues: {
       name: '',
@@ -44,7 +45,7 @@ const RegisterModal = () => {
         registerModal.onClose();
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error(error.message);
       })
       .finally(() => {
         setIsLoading(false);
@@ -62,16 +63,17 @@ const RegisterModal = () => {
         subtitle="Create an account!"
       />
       <Input
-        id="email"
-        label="Email"
+        id="name"
+        label="Name"
         disabled={isLoading}
         register={register}
         errors={errors}
         required
       />
       <Input
-        id="name"
-        label="Name"
+        id="email"
+        label="Email"
+        type='email'
         disabled={isLoading}
         register={register}
         errors={errors}
