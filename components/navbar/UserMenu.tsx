@@ -3,7 +3,7 @@ import Avatar from '@/components/Avatar';
 import MenuItem from '@/components/navbar/MenuItem';
 import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
-import { User } from '@prisma/client';
+import { SafeUser } from '@/types';
 import { signOut } from 'next-auth/react';
 import { useCallback, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
@@ -12,7 +12,7 @@ import { BsFillBalloonHeartFill, BsFillHouseFill, BsFillHouseHeartFill } from 'r
 import { GrLogout, GrUser, GrUserAdd } from 'react-icons/gr';
 
 interface UserMenuProps {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
