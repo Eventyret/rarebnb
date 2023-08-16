@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
 import './globals.css'
 import ToasterProvider from '@/providers/ToasterPrivder'
+import LoginModal from '@/components/modals/LoginModal'
 
 const inter = Nunito({ subsets: ['latin'] })
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         <ClientOnly>
           <ToasterProvider />
           <RegisterModal />
+          <LoginModal />
           <Navbar />
         </ClientOnly>
         {children}
