@@ -1,12 +1,20 @@
 "use client"
-import { useCallback, useState } from 'react';
-import { AiOutlineMenu } from 'react-icons/ai';
 import Avatar from '@/components/Avatar';
 import MenuItem from '@/components/navbar/MenuItem';
-import useRegisterModal from '@/hooks/useRegisterModal';
 import useLoginModal from '@/hooks/useLoginModal';
-import { GrUserAdd, GrUser } from 'react-icons/gr';
-const UserMenu = () => {
+import useRegisterModal from '@/hooks/useRegisterModal';
+import { User } from '@prisma/client';
+import { useCallback, useState } from 'react';
+import { AiOutlineMenu } from 'react-icons/ai';
+import { BiTrip } from 'react-icons/bi';
+import { BsFillBalloonHeartFill, BsFillHouseFill, BsFillHouseHeartFill } from 'react-icons/bs';
+import { GrLogout, GrUser, GrUserAdd } from 'react-icons/gr';
+
+interface UserMenuProps {
+  currentUser?: User | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
@@ -29,19 +37,50 @@ const UserMenu = () => {
       {isOpen && (
         <div className='absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm'>
           <div className='flex flex-col cursor-pointer'>
-            <>
+            {currentUser ? (
+              <>
+                <MenuItem
+                  onClick={() => { }}
+                  label='My Trips'
+                  icon={<BiTrip size={18} />}
+                />
+                <MenuItem
+                  onClick={() => { }}
+                  label='My favourites'
+                  icon={<BsFillBalloonHeartFill size={18} />}
+                />
+                <MenuItem
+                  onClick={() => { }}
+                  label='My properties'
+                  icon={<BsFillHouseHeartFill size={18} />}
+                />
+                <MenuItem
+                  onClick={() => { }}
+                  label='Rarebnb my home'
+                  icon={<BsFillHouseFill size={18} />}
+                />
+                <hr />
+                <MenuItem
+                  onClick={() => { }}
+                  label='Sign Out'
+                  icon={<GrLogout size={18} />}
+                />
+              </>
+            ) : (
+              <>
+                <MenuItem
+                  onClick={loginModal.onOpen}
+                  label='Sign In'
+                  icon={<GrUser size={18} />}
+                />
+                <MenuItem
+                  onClick={registerModal.onOpen}
+                  label='Sign Up'
+                  icon={<GrUserAdd size={18} />}
+                />
+              </>
+            )}
 
-              <MenuItem
-                onClick={loginModal.onOpen}
-                label='Sign In'
-                icon={<GrUser size={18} />}
-              />
-              <MenuItem
-                onClick={registerModal.onOpen}
-                label='Sign Up'
-                icon={<GrUserAdd size={18} />}
-              />
-            </>
           </div>
         </div>
       )}

@@ -6,6 +6,7 @@ import { Nunito } from 'next/font/google'
 import './globals.css'
 import ToasterProvider from '@/providers/ToasterPrivder'
 import LoginModal from '@/components/modals/LoginModal'
+import getCurrentUser from './actions/getCurrentUser'
 
 const inter = Nunito({ subsets: ['latin'] })
 
@@ -14,11 +15,12 @@ export const metadata: Metadata = {
   description: 'Rare houses for rent',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const currentUser = await getCurrentUser();
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -26,7 +28,7 @@ export default function RootLayout({
           <ToasterProvider />
           <RegisterModal />
           <LoginModal />
-          <Navbar />
+          <Navbar currentUser={currentUser} />
         </ClientOnly>
         {children}
       </body>
