@@ -4,9 +4,11 @@ import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
+import { signIn } from 'next-auth/react';
 import {
   FieldValues,
   SubmitHandler,
+  set,
   useForm
 } from "react-hook-form";
 
@@ -17,8 +19,10 @@ import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
 import useLoginModal from '@/hooks/useLoginModal';
+import { useRouter } from 'next/navigation';
 
 const LoginModal = () => {
+  const router = useRouter();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +36,6 @@ const LoginModal = () => {
     watch
   } = useForm<FieldValues>({
     defaultValues: {
-      name: '',
       email: '',
       password: ''
     },
@@ -41,23 +44,20 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    fetch('/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data),
-    })
-      .then(() => {
-        toast.success('Registered!');
+    signIn('credentials', {
+      ...data,
+      redirect: false,
+    }).then((callback) => {
+      setIsLoading(false);
+      if (callback?.ok) {
+        toast.success('Logged in successfully!');
+        router.refresh();
         loginModal.onClose();
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
+      }
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    })
   }
 
   const onToggle = useCallback(() => {
@@ -67,16 +67,8 @@ const LoginModal = () => {
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading
-        title="Welcome to RareBnB"
+        title="Welcome back"
         subtitle="Sign in to your account!"
-      />
-      <Input
-        id="name"
-        label="Name"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
       />
       <Input
         id="email"
