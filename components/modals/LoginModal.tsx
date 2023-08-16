@@ -19,6 +19,7 @@ import Button from "../Button";
 import useLoginModal from '@/hooks/useLoginModal';
 
 const LoginModal = () => {
+  const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -66,8 +67,8 @@ const LoginModal = () => {
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading
-        title="Welcome to Airbnb"
-        subtitle="Create an account!"
+        title="Welcome to RareBnB"
+        subtitle="Sign in to your account!"
       />
       <Input
         id="name"
@@ -121,7 +122,7 @@ const LoginModal = () => {
           font-light
         "
       >
-        <p>Already have an account?
+        <p>Don&apos;t have an account?
           <span
             onClick={onToggle}
             className="
@@ -129,7 +130,7 @@ const LoginModal = () => {
               cursor-pointer 
               hover:underline
             "
-          > Log in</span>
+          > Register now</span>
         </p>
       </div>
     </div>
@@ -139,8 +140,8 @@ const LoginModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={loginModal.isOpen}
-      title="Register"
-      actionLabel="Continue"
+      title="Sign In"
+      actionLabel="Sign In"
       onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
