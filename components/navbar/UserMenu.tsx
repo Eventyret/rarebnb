@@ -4,6 +4,7 @@ import MenuItem from '@/components/navbar/MenuItem';
 import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
 import { User } from '@prisma/client';
+import { signOut } from 'next-auth/react';
 import { useCallback, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { BiTrip } from 'react-icons/bi';
@@ -61,7 +62,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 />
                 <hr />
                 <MenuItem
-                  onClick={() => { }}
+                  onClick={() => signOut()}
                   label='Sign Out'
                   icon={<GrLogout size={18} />}
                 />
