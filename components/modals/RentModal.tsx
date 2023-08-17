@@ -36,6 +36,7 @@ const RentModal = () => {
     }
   });
   const category = watch('category');
+  const location = watch('location');
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -54,6 +55,7 @@ const RentModal = () => {
     if (step === STEPS.CATEGORY) return undefined
     return "Back"
   }, [STEPS.CATEGORY, step])
+
   const onBack = () => {
     setStep(value => value - 1)
   }
@@ -103,7 +105,7 @@ const RentModal = () => {
           value={location}
           onChange={(value) => setCustomValue('location', value)}
         />
-        {/* <Map center={location?.latlng} /> */}
+        <Map center={location?.latlng} />
       </div>
     );
   }
