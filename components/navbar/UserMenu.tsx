@@ -3,6 +3,7 @@ import Avatar from '@/components/Avatar';
 import MenuItem from '@/components/navbar/MenuItem';
 import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
+import useRentModal from '@/hooks/useRentModal';
 import { SafeUser } from '@/types';
 import { signOut } from 'next-auth/react';
 import { useCallback, useState } from 'react';
@@ -18,13 +19,22 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => { setIsOpen(!isOpen); }, [isOpen]);
+
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+    rentModal.onOpen();
+  }, [currentUser, loginModal, rentModal]);
   return (
     <div className='relative'>
       <div className='flex flex-row items-center gap-3'>
-        <div className='hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer' onClick={() => { }}>
-          Airbnb your home
+        <div className='hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer' onClick={onRent}>
+          <BsFillHouseFill size={18} className='inline-block mr-1' />
+          Your home
         </div>
 
         <div className='p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition' onClick={toggleOpen}>
@@ -56,8 +66,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   icon={<BsFillHouseHeartFill size={18} />}
                 />
                 <MenuItem
-                  onClick={() => { }}
-                  label='Rarebnb my home'
+                  onClick={rentModal.onOpen}
+                  label='My home'
                   icon={<BsFillHouseFill size={18} />}
                 />
                 <hr />
