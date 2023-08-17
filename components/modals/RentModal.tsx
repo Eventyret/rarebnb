@@ -155,6 +155,7 @@ const RentModal = () => {
           title="Upload some photos of your place"
           subtitle='Show guests what your place looks like?'
         />
+        <ImageUpload />
       </div>
     )
   }
