@@ -5,6 +5,7 @@ import useRentModal from '@/hooks/useRentModal';
 import { CATEGORIES } from '@/lib/categories';
 import Heading from '../Heading';
 import Modal from './Modal';
+import CategoryInput from '../inputs/CategoryInput';
 
 const RentModal = () => {
   enum STEP {
@@ -40,7 +41,7 @@ const RentModal = () => {
       <div className='grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto'>
         {CATEGORIES.map((category) => (
           <div key={category.label} className='col-span-1'>
-            {category.label}
+            <CategoryInput onClick={() => { }} selected={false} label={category.label} icon={category.icon} />
           </div>
         ))
         }
