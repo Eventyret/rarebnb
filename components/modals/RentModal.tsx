@@ -148,6 +148,16 @@ const RentModal = () => {
       </div>
     )
   }
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div className='flex flex-col gap-8'>
+        <Heading
+          title="Upload some images of your place"
+          subtitle='What amenities can guests expect?'
+        />
+      </div>
+    )
+  }
 
 
   return (
