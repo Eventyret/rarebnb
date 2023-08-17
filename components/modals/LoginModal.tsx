@@ -1,25 +1,24 @@
 'use client';
 
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
-import { useCallback, useState } from "react";
-import { toast } from "react-hot-toast";
 import { signIn } from 'next-auth/react';
+import { useCallback, useState } from "react";
 import {
   FieldValues,
   SubmitHandler,
-  set,
   useForm
 } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { AiFillGithub } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
 
 import useRegisterModal from "@/hooks/useRegisterModal";
 
-import Modal from "./Modal";
-import Input from "../inputs/Input";
-import Heading from "../Heading";
-import Button from "../Button";
 import useLoginModal from '@/hooks/useLoginModal';
 import { useRouter } from 'next/navigation';
+import Button from "../Button";
+import Heading from "../Heading";
+import Input from "../inputs/Input";
+import Modal from "./Modal";
 
 const LoginModal = () => {
   const router = useRouter();
@@ -33,7 +32,7 @@ const LoginModal = () => {
     formState: {
       errors,
     },
-    watch
+
   } = useForm<FieldValues>({
     defaultValues: {
       email: '',
