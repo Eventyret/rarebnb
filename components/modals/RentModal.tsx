@@ -10,6 +10,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import CountrySelect from '../inputs/CountrySelect';
 import dynamic from 'next/dynamic';
 import Counter from '../inputs/Counter';
+import ImageUpload from '../inputs/ImageUpload';
 
 const RentModal = () => {
   enum STEPS {
@@ -42,6 +43,7 @@ const RentModal = () => {
   const guestCount = watch('guestCount');
   const roomCount = watch('roomCount');
   const bathroomCount = watch('bathroomCount');
+  const imageSrc = watch('imageSrc');
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const Map = useMemo(() => dynamic(() => import('../Map'), { ssr: false }), [location])
@@ -155,7 +157,7 @@ const RentModal = () => {
           title="Upload some photos of your place"
           subtitle='Show guests what your place looks like?'
         />
-        <ImageUpload />
+        <ImageUpload value={imageSrc} onChange={(value) => setCustomValue("imageSrc", value)} />
       </div>
     )
   }
