@@ -152,8 +152,8 @@ const RentModal = () => {
     bodyContent = (
       <div className='flex flex-col gap-8'>
         <Heading
-          title="Upload some images of your place"
-          subtitle='What amenities can guests expect?'
+          title="Upload some photos of your place"
+          subtitle='Show guests what your place looks like?'
         />
       </div>
     )
