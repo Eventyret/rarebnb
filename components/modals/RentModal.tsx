@@ -4,11 +4,11 @@ import { useMemo, useState } from 'react';
 import useRentModal from '@/hooks/useRentModal';
 import { CATEGORIES } from '@/lib/categories';
 import Heading from '../Heading';
-import Map from '../Map';
 import Modal from './Modal';
 import CategoryInput from '../inputs/CategoryInput';
 import { FieldValues, useForm } from 'react-hook-form';
 import CountrySelect from '../inputs/CountrySelect';
+import dynamic from 'next/dynamic';
 
 const RentModal = () => {
   enum STEPS {
@@ -38,6 +38,9 @@ const RentModal = () => {
   });
   const category = watch('category');
   const location = watch('location');
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const Map = useMemo(() => dynamic(() => import('../Map'), { ssr: false }), [location])
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
