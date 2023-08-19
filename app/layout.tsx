@@ -6,7 +6,7 @@ import { Nunito } from 'next/font/google'
 import './globals.css'
 import ToasterProvider from '@/providers/ToasterPrivder'
 import LoginModal from '@/components/modals/LoginModal'
-import getCurrentUser from './actions/getCurrentUser'
+import getCurrentUser from '../actions/getCurrentUser'
 import RentModal from '@/components/modals/RentModal'
 
 const inter = Nunito({ subsets: ['latin'] })
