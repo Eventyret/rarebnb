@@ -1,5 +1,6 @@
 'use client';
 
+import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
@@ -7,6 +8,7 @@ import { toast } from "react-hot-toast";
 import {
   FieldValues,
   SubmitHandler,
+  set,
   useForm
 } from "react-hook-form";
 
@@ -41,24 +43,12 @@ const RegisterModal = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-
-    fetch('/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data),
-    })
+    axios.post('/api/register', data)
       .then(() => {
         toast.success('Registered!');
         registerModal.onClose();
       })
-      .catch((error) => {
-        toast.error(error.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
+      .catch((error) => toast.error(error.message)).finally(() => setIsLoading(false));
   }
 
   const onToggle = useCallback(() => {

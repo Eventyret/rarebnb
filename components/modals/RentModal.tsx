@@ -1,4 +1,5 @@
 "use client"
+import axios from 'axios';
 import { useMemo, useState } from 'react';
 
 import useRentModal from '@/hooks/useRentModal';
@@ -66,19 +67,16 @@ const RentModal = () => {
       return onNext()
     }
     setIsLoading(true)
-    fetch('/api/listings', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(data)
-    }).then(() => {
-      toast.success('Listing created successfully')
-      router.refresh();
-      reset();
-      setStep(STEPS.CATEGORY)
-      rentModal.onClose();
-    }).catch((error) => toast.error(error.message))
+
+    axios.post('/api/listings', data)
+      .then(() => {
+        toast.success('Listing created successfully')
+        router.refresh();
+        reset();
+        setStep(STEPS.CATEGORY)
+        rentModal.onClose();
+      })
+      .catch((error) => toast.error(error.message))
       .finally(() => setIsLoading(false))
 
   }
